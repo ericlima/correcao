@@ -66,10 +66,26 @@ public class CorrecaoProvaBean {
 			
 	}
 	
-	public String opcao(int coluna, int pergunta, int resposta) {
-		String retorno = "";
-		int posicao = 0;
-		
+	public String opcaoDM(int coluna, int pergunta) {
+		int posicao = retornaPosicao(coluna,pergunta);
+		if (this.resultados.getRespostas().substring(posicao,posicao+1).equals("9")) {
+			return "block";
+		} else {
+			return "none";
+		}
+	}
+
+	public String opcaoSM(int coluna, int pergunta) {
+		int posicao = retornaPosicao(coluna,pergunta);
+		if ((posicao < this.resultados.getQuestoes()) && (this.resultados.getRespostas().substring(posicao,posicao+1).equals("0"))) {
+			return "block";
+		} else {
+			return "none";
+		}
+	}
+
+	private int retornaPosicao(int coluna, int pergunta) {
+		int posicao = 0;		
 		if (coluna==4) {
 			posicao = 75 + pergunta;
 		} else if (coluna==3) {
@@ -79,6 +95,12 @@ public class CorrecaoProvaBean {
 		} else if (coluna==1) {
 			posicao = pergunta;
 		}
+		return posicao;
+	}
+	
+	public String opcao(int coluna, int pergunta, int resposta) {
+		String retorno = "";
+		int posicao = retornaPosicao(coluna,pergunta);
 		try {
 		if (this.resultados.getRespostas().substring(posicao,posicao+1).equals(Integer.toString(resposta))) {
 			retorno = "checked";
