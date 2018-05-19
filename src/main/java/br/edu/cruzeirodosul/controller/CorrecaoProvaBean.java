@@ -1,12 +1,16 @@
 package br.edu.cruzeirodosul.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.xml.bind.DatatypeConverter;
 
 import br.edu.cruzeirodosul.model.ResultadosProvaDTO;
 import br.edu.cruzeirodosul.service.CorrecaoProvaService;
@@ -14,16 +18,21 @@ import br.edu.cruzeirodosul.service.CorrecaoProvaService;
 @ManagedBean
 public class CorrecaoProvaBean {
 
+	private String imageBase64_1;
+	private String imageBase64_2;
+	private String imageBase64_3;
+	private String imageBase64_4;
+
 	private CorrecaoProvaService correcaoProvaService;
-	
+
 	private BufferedImage bufferedImg = null;
-	private List<Integer> listaQuestoes ;
+	private List<Integer> listaQuestoes;
 	private ResultadosProvaDTO resultados;
 	private String numeroProva;
-	
+
 	private Integer linha = 225;
 	private Integer incremento = 38;
-	
+
 	private Integer coluna101 = 110;
 	private Integer coluna102 = 156;
 	private Integer coluna103 = 202;
@@ -50,25 +59,43 @@ public class CorrecaoProvaBean {
 
 	@PostConstruct
 	public void init() {
-		
+
+		this.imageBase64_1 = obtemBase64("/home/eric/cadernos/p1.jpg");
+		this.imageBase64_2 = obtemBase64("/home/eric/cadernos/p2.jpg");
+		this.imageBase64_3 = obtemBase64("/home/eric/cadernos/p3.jpg");
+		this.imageBase64_4 = obtemBase64("/home/eric/cadernos/p4.jpg");
+
 		correcaoProvaService = new CorrecaoProvaService();
-		
+
 		this.numeroProva = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("prova");
-		
+
 		resultados = correcaoProvaService.obtemResultados(this.numeroProva);
-		
+
 		this.listaQuestoes = new ArrayList<>();
-		
+
 		Integer x;
-		for(x=0; x<25; x++) {
+		for (x = 0; x < 25; x++) {
 			listaQuestoes.add(x);
 		}
-			
+
 	}
-	
+
+	private String obtemBase64(String arquivo) {
+		String retorno;
+		File arq1 = new File(arquivo);
+		byte[] imageBytes = null;
+		try {
+			imageBytes = Files.readAllBytes(arq1.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		retorno = "data:application/pdf;base64," + DatatypeConverter.printBase64Binary(imageBytes);
+		return retorno;
+	}
+
 	public String opcaoDM(int coluna, int pergunta) {
-		int posicao = retornaPosicao(coluna,pergunta);
-		if (this.resultados.getRespostas().substring(posicao,posicao+1).equals("9")) {
+		int posicao = retornaPosicao(coluna, pergunta);
+		if (this.resultados.getRespostas().substring(posicao, posicao + 1).equals("9")) {
 			return "block";
 		} else {
 			return "none";
@@ -76,8 +103,9 @@ public class CorrecaoProvaBean {
 	}
 
 	public String opcaoSM(int coluna, int pergunta) {
-		int posicao = retornaPosicao(coluna,pergunta);
-		if ((posicao < this.resultados.getQuestoes()) && (this.resultados.getRespostas().substring(posicao,posicao+1).equals("0"))) {
+		int posicao = retornaPosicao(coluna, pergunta);
+		if ((posicao < this.resultados.getQuestoes())
+				&& (this.resultados.getRespostas().substring(posicao, posicao + 1).equals("0"))) {
 			return "block";
 		} else {
 			return "none";
@@ -85,29 +113,29 @@ public class CorrecaoProvaBean {
 	}
 
 	private int retornaPosicao(int coluna, int pergunta) {
-		int posicao = 0;		
-		if (coluna==4) {
+		int posicao = 0;
+		if (coluna == 4) {
 			posicao = 75 + pergunta;
-		} else if (coluna==3) {
+		} else if (coluna == 3) {
 			posicao = 50 + pergunta;
-		} else if (coluna==2) {
+		} else if (coluna == 2) {
 			posicao = 25 + pergunta;
-		} else if (coluna==1) {
+		} else if (coluna == 1) {
 			posicao = pergunta;
 		}
 		return posicao;
 	}
-	
+
 	public String opcao(int coluna, int pergunta, int resposta) {
 		String retorno = "";
-		int posicao = retornaPosicao(coluna,pergunta);
+		int posicao = retornaPosicao(coluna, pergunta);
 		try {
-		if (this.resultados.getRespostas().substring(posicao,posicao+1).equals(Integer.toString(resposta))) {
-			retorno = "checked";
-		} else {
-			retorno = "";
-		}
-		} catch(Exception e) {
+			if (this.resultados.getRespostas().substring(posicao, posicao + 1).equals(Integer.toString(resposta))) {
+				retorno = "checked";
+			} else {
+				retorno = "";
+			}
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return retorno;
@@ -321,5 +349,36 @@ public class CorrecaoProvaBean {
 		this.coluna405 = coluna405;
 	}
 
+	public String getImageBase64_1() {
+		return imageBase64_1;
+	}
+
+	public void setImageBase64_1(String imageBase64_1) {
+		this.imageBase64_1 = imageBase64_1;
+	}
+
+	public String getImageBase64_2() {
+		return imageBase64_2;
+	}
+
+	public void setImageBase64_2(String imageBase64_2) {
+		this.imageBase64_2 = imageBase64_2;
+	}
+
+	public String getImageBase64_3() {
+		return imageBase64_3;
+	}
+
+	public void setImageBase64_3(String imageBase64_3) {
+		this.imageBase64_3 = imageBase64_3;
+	}
+
+	public String getImageBase64_4() {
+		return imageBase64_4;
+	}
+
+	public void setImageBase64_4(String imageBase64_4) {
+		this.imageBase64_4 = imageBase64_4;
+	}
 
 }

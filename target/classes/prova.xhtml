@@ -6,68 +6,121 @@
 <h:head>
 	<meta charset="UTF-8" />
 	<style></style>
-	
 </h:head>
 <h:body>
 
 	<h:form>
-	
-		<p:panel header="Aluno: #{correcaoProvaBean.resultados.nomeAluno} - Prova: #{correcaoProvaBean.numeroProva}"  >
+
+		<p:panel
+			header="Aluno: #{correcaoProvaBean.resultados.nomeAluno} - Prova: #{correcaoProvaBean.numeroProva}">
 			<h:panelGrid columns="2">
-			
-				<h:button value="fechar sem salvar" ></h:button>
-				<h:button value="Salvar e carregar próxima prova" ></h:button>
-				
+
+				<h:button value="fechar sem salvar"></h:button>
+				<h:button value="Salvar e carregar próxima prova"></h:button>
+
 			</h:panelGrid>
 		</p:panel>
 
-		<p:panel header="Questões" >
-		
+		<p:panel header="Questões">
+
 			<h:panelGrid columns="4">
 
-				<h:graphicImage library="images" name="p1.jpg" width="310px" /> 
-				<h:graphicImage library="images" name="p2.jpg" width="310px" />
-				<h:graphicImage library="images" name="p3.jpg" width="310px" />
-				<h:graphicImage library="images" name="p4.jpg" width="310px" />
-				
-				<ui:repeat var="q" value="#{correcaoProvaBean.listaQuestoes}" varStatus="status">
+				<h:graphicImage value="${correcaoProvaBean.imageBase64_1}"
+					width="310px" />
+				<h:graphicImage value="${correcaoProvaBean.imageBase64_2}"
+					width="310px" />
+				<h:graphicImage value="${correcaoProvaBean.imageBase64_3}"
+					width="310px" />
+				<h:graphicImage value="${correcaoProvaBean.imageBase64_4}"
+					width="310px" />
 
-					<input type="checkbox" id="chk11#{q}" checked="#{correcaoProvaBean.opcao(1,q,1)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna101}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk12#{q}" checked="#{correcaoProvaBean.opcao(1,q,2)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna102}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk13#{q}" checked="#{correcaoProvaBean.opcao(1,q,3)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna103}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk14#{q}" checked="#{correcaoProvaBean.opcao(1,q,4)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna104}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk15#{q}" checked="#{correcaoProvaBean.opcao(1,q,5)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna105}px; opacity: 0.7;" />
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(1,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna105+35}px;">DM</label>
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(1,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna105+35}px;">SM</label>
-					
-					<input type="checkbox" id="chk21#{q}" checked="#{correcaoProvaBean.opcao(2,q,1)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna201}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk22#{q}" checked="#{correcaoProvaBean.opcao(2,q,2)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna202}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk23#{q}" checked="#{correcaoProvaBean.opcao(2,q,3)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna203}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk24#{q}" checked="#{correcaoProvaBean.opcao(2,q,4)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna204}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk25#{q}" checked="#{correcaoProvaBean.opcao(2,q,5)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna205}px; opacity: 0.7;" />
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(2,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna205+35}px;">DM</label>
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(2,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna205+35}px;">SM</label>
+				<ui:repeat var="q" value="#{correcaoProvaBean.listaQuestoes}"
+					varStatus="status">
 
-					<input type="checkbox" id="chk31#{q}" checked="#{correcaoProvaBean.opcao(3,q,1)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna301}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk32#{q}" checked="#{correcaoProvaBean.opcao(3,q,2)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna302}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk33#{q}" checked="#{correcaoProvaBean.opcao(3,q,3)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna303}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk34#{q}" checked="#{correcaoProvaBean.opcao(3,q,4)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna304}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk35#{q}" checked="#{correcaoProvaBean.opcao(3,q,5)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna305}px; opacity: 0.7;" />
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(3,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna305+35}px;">DM</label>
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(3,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna305+35}px;">SM</label>
+					<input type="checkbox" id="chk11#{q}"
+						checked="#{correcaoProvaBean.opcao(1,q,1)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk12#{q}"
+						checked="#{correcaoProvaBean.opcao(1,q,2)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk13#{q}"
+						checked="#{correcaoProvaBean.opcao(1,q,3)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk14#{q}"
+						checked="#{correcaoProvaBean.opcao(1,q,4)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk15#{q}"
+						checked="#{correcaoProvaBean.opcao(1,q,5)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(1, q)">DM</label>
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(1, q)">SM</label>
 
-					<input type="checkbox" id="chk41#{q}" checked="#{correcaoProvaBean.opcao(4,q,1)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna401}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk42#{q}" checked="#{correcaoProvaBean.opcao(4,q,2)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna402}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk43#{q}" checked="#{correcaoProvaBean.opcao(4,q,3)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna403}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk44#{q}" checked="#{correcaoProvaBean.opcao(4,q,4)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna404}px; opacity: 0.7;" />
-					<input type="checkbox" id="chk45#{q}" checked="#{correcaoProvaBean.opcao(4,q,5)}" style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna405}px; opacity: 0.7;" />
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(4,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna405+35}px;">DM</label>
-					<label style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(4,q)}; position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)}px; left: #{correcaoProvaBean.coluna405+35}px;">SM</label>
+					<input type="checkbox" id="chk21#{q}"
+						checked="#{correcaoProvaBean.opcao(2,q,1)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk22#{q}"
+						checked="#{correcaoProvaBean.opcao(2,q,2)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk23#{q}"
+						checked="#{correcaoProvaBean.opcao(2,q,3)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk24#{q}"
+						checked="#{correcaoProvaBean.opcao(2,q,4)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk25#{q}"
+						checked="#{correcaoProvaBean.opcao(2,q,5)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(2, q)">DM</label>
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(2, q)">SM</label>
+
+					<input type="checkbox" id="chk31#{q}"
+						checked="#{correcaoProvaBean.opcao(3,q,1)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk32#{q}"
+						checked="#{correcaoProvaBean.opcao(3,q,2)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk33#{q}"
+						checked="#{correcaoProvaBean.opcao(3,q,3)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk34#{q}"
+						checked="#{correcaoProvaBean.opcao(3,q,4)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk35#{q}"
+						checked="#{correcaoProvaBean.opcao(3,q,5)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(3, q)">DM</label>
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(3, q)">SM</label>
+
+					<input type="checkbox" id="chk41#{q}"
+						checked="#{correcaoProvaBean.opcao(4,q,1)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk42#{q}"
+						checked="#{correcaoProvaBean.opcao(4,q,2)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk43#{q}"
+						checked="#{correcaoProvaBean.opcao(4,q,3)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk44#{q}"
+						checked="#{correcaoProvaBean.opcao(4,q,4)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<input type="checkbox" id="chk45#{q}"
+						checked="#{correcaoProvaBean.opcao(4,q,5)}"
+						style="position: absolute; top: #{correcaoProvaBean.linha+(q*correcaoProvaBean.incremento)" />
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoDM(4, q)">DM</label>
+					<label
+						style="font-size: smaller; color: red; display: #{correcaoProvaBean.opcaoSM(4, q)">SM</label>
 
 				</ui:repeat>
-				
+
 			</h:panelGrid>
-			
+
 		</p:panel>
 
 	</h:form>
